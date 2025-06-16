@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+"<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portofolio Tegar Satrio</title>
+  <style>
+    /* Reset dan font */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f4ff;
+      color: #1a1a2e;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    a {
+      color: #3f51b5;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #1a237e;
+      text-decoration: underline;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: slideDownFade 0.8s ease forwards;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.2rem;
+      color: #283593;
+    }
+    header p {
+      font-size: 1.1rem;
+      color: #555;
+      font-weight: 500;
+    }
+
+    nav {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      animation: slideUpFade 0.8s ease forwards;
+    }
+    nav button {
+      background: transparent;
+      border: none;
+      font-size: 1rem;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      color: #3f51b5;
+      border-bottom: 2px solid transparent;
+      font-weight: 600;
+      transition: border-color 0.3s ease, color 0.3s ease;
+      position: relative;
+    }
+    nav button.active,
+    nav button:hover {
+      color: #1a237e;
+      border-color: #1a237e;
+    }
+    nav button:focus {
+      outline: none;
+      box-shadow: 0 0 5px #1a237eaa;
+    }
+
+    main {
+      max-width: 800px;
+      width: 100%;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 8px 16px rgba(50,50,93,0.1);
+      padding: 2rem 2.5rem;
+      min-height: 400px;
+      animation: fadeInContent 0.5s ease forwards;
+    }
+
+    section {
+      display: none;
+    }
+    section.active {
+      display: block;
+      animation: fadeInContent 0.5s ease forwards;
+    }
+
+    h2 {
+      color: #283593;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      border-bottom: 2px solid #c5cae9;
+      padding-bottom: 0.5rem;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 1.5rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+    }
+    ul li {
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+    }
+
+    /* Contact Form */
+    form {
+      max-width: 500px;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+      color: #3949ab;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      border: 1.8px solid #c5cae9;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.3s ease;
+      resize: vertical;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #283593;
+      box-shadow: 0 0 6px #283593aa;
+    }
+    button.submit-btn {
+      background-color: #3949ab;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 8px rgba(57,73,171,0.3);
+    }
+    button.submit-btn:hover {
+      background-color: #283593;
+    }
+
+    .error-message {
+      color: #d32f2f;
+      font-size: 0.9rem;
+      margin-top: -0.8rem;
+      margin-bottom: 0.8rem;
+      display: none;
+    }
+    .success-message {
+      color: #2e7d32;
+      font-weight: 700;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    footer {
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      color: #777;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Scroll to top button */
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #3949ab;
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 8px rgba(57,73,171,0.5);
+      display: none;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
+    #scrollTopBtn:hover {
+      background-color: #283593;
+    }
+
+    /* Animations */
+    @keyframes slideDownFade {
+      0% {opacity: 0; transform: translateY(-25px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes slideUpFade {
+      0% {opacity: 0; transform: translateY(25px);}
+      100% {opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInContent {
+      0% {opacity: 0;}
+      100% {opacity: 1;}
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      main {
+        padding: 1.5rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Tegar Satrio</h1>
+    <p>Pengembang Web & Pengusaha Muda</p>
+  </header>
+
+  <nav>
+    <button class="tab-btn active" data-target="home" aria-label="Home section">Home</button>
+    <button class="tab-btn" data-target="about" aria-label="About section">About</button>
+    <button class="tab-btn" data-target="projects" aria-label="Projects section">Projects</button>
+    <button class="tab-btn" data-target="contact" aria-label="Contact section">Contact</button>
+  </nav>
+
+  <main role="main">
+    <section id="home" class="active" tabindex="0" aria-live="polite" aria-label="Home content">
+      <h2>Selamat Datang!</h2>
+      <p>Saya seorang pengembang web yang bersemangat belajar teknologi baru dan membangun aplikasi yang berguna. Mari lihat lebih lanjut tentang saya dan karya saya.</p>
+    </section>
+
+    <section id="about" tabindex="0" aria-live="polite" aria-label="About content">
+      <h2>Tentang Saya</h2>
+      <p>Saya memiliki pengalaman di bidang pengembangan web dengan keahlian HTML, CSS, dan JavaScript. Saya juga sedang mengembangkan kemampuan di React dan teknologi modern lainnya.</p>
+      <p>Cita-cita saya adalah menjadi pengusaha sukses dengan memanfaatkan teknologi untuk menciptakan nilai.</p>
+    </section>
+
+    <section id="projects" tabindex="0" aria-live="polite" aria-label="Projects content">
+      <h2>Proyek</h2>
+      <ul>
+        <li><strong>Website Toko Online</strong> - Website e-commerce dengan fitur keranjang belanja dan pembayaran online. <a href="https://contohtoko.com" target="_blank" rel="noopener noreferrer">Lihat</a></li>
+        <li><strong>Aplikasi Catatan Harian</strong> - Aplikasi mobile untuk mencatat aktivitas harian dengan fitur pengingat. <a href="https://github.com/user/harian-app" target="_blank" rel="noopener noreferrer">Lihat</a></li>
+        <li><strong>Blog Pribadi</strong> - Blog tentang teknologi dan pemrograman dengan CMS custom. <a href="https://myblog.com" target="_blank" rel="noopener noreferrer">Lihat</a></li>
+      </ul>
+    </section>
+
+    <section id="contact" tabindex="0" aria-live="polite" aria-label="Contact content">
+      <h2>Kontak</h2>
+      <form id="contactForm" novalidate>
+        <label for="name">Nama</label>
+        <input type="text" id="name" name="name" placeholder="Nama lengkap" required aria-required="true" />
+        <div class="error-message" id="errorName">Mohon isi nama dengan benar.</div>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="email@domain.com" required aria-required="true" />
+        <div class="error-message" id="errorEmail">Mohon isi email yang valid.</div>
+
+        <label for="message">Pesan</label>
+        <textarea id="message" name="message" rows="5" placeholder="Tulis pesan Anda..." required aria-required="true"></textarea>
+        <div class="error-message" id="errorMessage">Mohon isi pesan.</div>
+
+        <button type="submit" class="submit-btn" aria-label="Kirim pesan">Kirim</button>
+        <p class="success-message" id="successMessage" role="alert">Pesan berhasil dikirim! Terima kasih.</p>
+      </form>
+    </section>
+  </main>
+
+  <button id="scrollTopBtn" aria-label="Scroll ke atas" title="Scroll ke atas">&#8679;</button>
+
+  <footer>
+    &copy; 2025 Tegar Satrio. Semua hak cipta dilindungi.
+  </footer>
+
+  <script>
+    // Tab navigation
+    const buttons = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('main section');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        sections.forEach(sec => sec.classList.remove('active'));
+        const target = btn.getAttribute('data-target');
+        document.getElementById(target).classList.add('active');
+        document.getElementById(target).focus();
+      });
+    });
+
+    // Scroll to top button
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        scrollBtn.style.display = 'block';
+      } else {
+        scrollBtn.style.display = 'none';
+      }
+    });
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+
+    // Form validation and submission simulation
+    const form = document.getElementById('contactForm');
+    const successMessage = document.getElementById('successMessage');
+
+    const errorName = document.getElementById('errorName');
+    const errorEmail = document.getElementById('errorEmail');
+    const errorMessage = document.getElementById('errorMessage');
+
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email.toLowerCase());
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      // Reset error messages
+      [errorName, errorEmail, errorMessage].forEach(el => el.style.display = 'none');
+
+      let valid = true;
+      const nameVal = form.name.value.trim();
+      const emailVal = form.email.value.trim();
+      const messageVal = form.message.value.trim();
+
+      if (nameVal.length < 2) {
+        errorName.style.display = 'block';
+        valid = false;
+      }
+      if (!validateEmail(emailVal)) {
+        errorEmail.style.display = 'block';
+        valid = false;
+      }
+      if (messageVal.length < 5) {
+        errorMessage.style.display = 'block';
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      successMessage.style.display = 'block';
+
+      // Reset form after 3 sec
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+        form.reset();
+      }, 3000);
+    });
+  </script>
+</body>
+</html>"
